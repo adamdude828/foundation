@@ -1,6 +1,4 @@
 #!/bin/bash
 
-for i in $(find /home/ -maxdepth 1 -mindepth 1 -type d -printf '%f\n')
-do
-	echo $i
-done
+source functions.sh
+runFromHere "/var/www/sites" "ln -s nexus/app app"
