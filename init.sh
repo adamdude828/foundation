@@ -4,7 +4,7 @@ if [[ $EUID -ne 0 ]]; then
 	echo "This script must be run as root" 1>&2
 	exit 1;
 fi
-source funtions.sh
+source functions.sh
 
 apt-get update
 apt-get -y install php5 vim apache2
@@ -45,18 +45,18 @@ mkdir -p /var/www/util
 
 chown -R "$regular_server_user:$regular_server_user" /var/www
 
-#currentpath=$( pwd )
-#cd /var/www/util
-#git clone https://github.com/phpmyadmin/phpmyadmin.git
-#
-#cd /var/www/util/phpmyadmin
-#thetagname=$( git tag | tail -1)
-#git checkout "$thetagname"
-#cd $currentpath
-#
-#pwd
-#chmod 775 deploy_dot_files.sh
-#./deploy_dot_files.sh
-#
-#apt-get -y install unattended-upgrades
-#sed -i "s/\/\/  \"${distro_id}:${distro_codename}-security\"/\"${distro_id}:${distro_codename}-security\"/g" /etc/apt/apt.conf.d/50unattended-upgrades
+currentpath=$( pwd )
+cd /var/www/util
+git clone https://github.com/phpmyadmin/phpmyadmin.git
+
+cd /var/www/util/phpmyadmin
+thetagname=$( git tag | tail -1)
+git checkout "$thetagname"
+cd $currentpath
+
+pwd
+chmod 775 deploy_dot_files.sh
+./deploy_dot_files.sh
+
+apt-get -y install unattended-upgrades
+sed -i "s/\/\/  \"${distro_id}:${distro_codename}-security\"/\"${distro_id}:${distro_codename}-security\"/g" /etc/apt/apt.conf.d/50unattended-upgrades
