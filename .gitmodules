@@ -4,3 +4,6 @@
 [submodule "files/dot/.vim/bundle/nerdtree"]
 	path = files/dot/.vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
+[submodule "DO/DigitalOcean"]
+	path = DO/DigitalOcean
+	url = https://github.com/toin0u/DigitalOcean
