@@ -34,3 +34,8 @@ createUsers() {
         passwd -l "$regular_server_user"
     fi
 }
+
+getCurrentLocation() {
+    DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+    current_location="$DIR/$1"
+}

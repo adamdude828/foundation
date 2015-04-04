@@ -1,0 +1,6 @@
+[submodule "files/dot/.vim/bundle/foundation"]
+	path = files/dot/.vim/bundle/foundation
+	url = https://github.com/adamdude828/foundation.git
+[submodule "files/dot/.vim/bundle/nerdtree"]
+	path = files/dot/.vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
