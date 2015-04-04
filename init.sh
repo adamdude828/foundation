@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#Need to think about firewall, and ssh password being turned off
 if [[ $EUID -ne 0 ]]; then
 	echo "This script must be run as root" 1>&2
 	exit 1;
@@ -9,23 +9,10 @@ source functions.sh
 apt-get update
 apt-get -y install php5 vim apache2
 source config.cfg
-echo "mysql-server mysql-server/root_password password $mysql_password" | debconf-set-selections
-echo "mysql-server mysql-server/root_password_again password $mysql_password" | debconf-set-selections
-apt-get -y install mysql-server
+installDb
 
 #make user and generate key
-adduser $regular_access_user --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
-echo "$regular_access_user:$regular_access_user_password" | chpasswd
-#need to generate key in context of user
-sudo -H -u "$regular_access_user"  ssh-keygen -t rsa -N "$regular_access_user_ssh_key" -f "/home/$regular_access_user/.ssh/id_rsa" usermod -a -G admin "$regular_access_user"
-
-if [[ "$regular_access_user" != "$regular_server_user" ]]
-then
-	adduser $regular_server_user --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
-	echo "$regular_server_user:$regular_server_user_password" | chpasswd
-	sudo -H -u "$regular_server_user"  ssh-keygen -t rsa -N "$regular_server_user_ssh_key" -f "/home/$regular_server_user/.ssh/id_rsa"
-	passwd -l "$regular_server_user"
-fi
+createUsers
 
 sed -i "s/www-data/$regular_server_user/g" /etc/apache2/envvars 
 service apache2 restart
