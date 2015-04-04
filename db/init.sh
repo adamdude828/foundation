@@ -13,5 +13,5 @@ installDb
 
 createUsers
 
-source ../deploy_dot_files.sh
+runFromHere "../" "./deploy_dot_files.sh"
 
