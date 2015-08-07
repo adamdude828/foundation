@@ -1,0 +1,31 @@
+*bundle-log.txt*                   Bundle Install Log
+
+
+Logs bundle install activity. Also see the list of installed |bundles|.
+
+Fri Sep 12 22:47:49 MDT 2014 by vim-update-bundles 0.8.3
+ Add |vim-pathogen|             v2.3-10-g91e6378   https://github.com/tpope/vim-pathogen.git
+ Add |vim-commentary|           v1.2-7-g8b4df6c    https://github.com/tpope/vim-commentary
+ Add |vim-surround|             v2.0-8-gfa433e0    https://github.com/tpope/vim-surround
+ Add |vim-endwise|              v1.2-4-gab5f7f9    https://github.com/tpope/vim-endwise
+ Interrupted
+
+Fri Sep 12 23:06:39 MDT 2014 by vim-update-bundles 0.8.3
+ Del |vim-endwise|              v1.2-4-gab5f7f9
+ Del |vim-surround|             v2.0-8-gfa433e0
+ Del |vim-pathogen|             v2.3-10-g91e6378
+ Del |vim-commentary|           v1.2-7-g8b4df6c
+   4 bundles removed
+
+Fri Sep 12 23:07:37 MDT 2014 by vim-update-bundles 0.8.3
+ Add |nerdtree|                 4.2.0-187-g4f1e6ec https://github.com/scrooloose/nerdtree.git
+   1 bundle added
+
+Fri Sep 12 23:15:45 MDT 2014 by vim-update-bundles 0.8.3
+ Add |vim-pathogen|             v2.3-10-g91e6378   https://github.com/tpope/vim-pathogen.git
+ Add |vim-commentary|           v1.2-7-g8b4df6c    https://github.com/tpope/vim-commentary
+ Add |vim-surround|             v2.0-8-gfa433e0    https://github.com/tpope/vim-surround
+ Add |vim-endwise|              v1.2-4-gab5f7f9    https://github.com/tpope/vim-endwise
+ Add |vim-easy-align|           2.9.6-2-g09167c7   https://github.com/junegunn/vim-easy-align
+ Interrupted
+

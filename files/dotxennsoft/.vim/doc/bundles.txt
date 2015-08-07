@@ -1,0 +1,14 @@
+*bundles* *bundles.txt*            Installed Bundles
+
+
+Lists the currently installed bundles. Also see the |bundle-log|.
+Last updated by vim-update-bundles on Fri Sep 12 23:15:45 MDT 2014.
+
+  PLUGIN                           VERSION                RELEASE DATE
+------------------------------------------------------------------------
+  |vim-pathogen|                   v2.3-10-g91e6378       2014-07-19
+  |vim-commentary|                 v1.2-7-g8b4df6c        2014-04-14
+  |vim-surround|                   v2.0-8-gfa433e0        2014-07-26
+  |vim-endwise|                    v1.2-4-gab5f7f9        2014-07-15
+  |vim-easy-align|                 2.9.6-2-g09167c7       2014-09-08
+Interrupted

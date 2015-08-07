@@ -17,7 +17,7 @@ groupadd dotfiles
 linkResource() {
     getCurrentLocation
     runFromHere $1 "sudo -u $2 rm -rf $3"
-    runFromHere $1 "sudo -u $2 ln -s ${current_location}files/dot/$3 $3"
+    runFromHere $1 "sudo -u $2 ln -s ${current_location}files/dotxennsoft/$3 $3"
 #    usermod -aG dotfiles $1
 }
 
