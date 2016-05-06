@@ -109,7 +109,7 @@ fi
 #PATH=$PATH:/var/www/cake_lib/cake/console:/etc/server_scripts/git:TH=$PATH:/var/www/cake_lib/cake/console:/etc/server_scripts/git:
 #export PATH
 
-PATH=$PATH:~/bin
+PATH=$PATH:~/android-sdk-linux/tools:~/bin:/usr/local/src/p7zip_9.38.1/bin:
 export PATH
 
 
@@ -162,6 +162,12 @@ magenta=$'\e[1;35m'
 normal=$'\e[m'
 bldwht=$'\e[1;37m'
 
+export wordpress_site_url="adam.xen"
+export wordpress_site_name="Adam blog"
+export wordpress_site_email="aholsinger@xensoft.com"
+export wordpress_site_user="aholsinger"
+export wordpress_site_password="insight21"
+
 PS1="\[$green\]\u@\h\[$blue\] \w\[$bldwht\]\$git_branch\[$green\]\$\[$normal\] "
 export PATH
 
@@ -172,6 +178,7 @@ alias clearcache="/var/www/html/hawk/eagle/scripts/clearcache.sh hawk"
 alias phpunitx="XDEBUG_CONFIG='idekey=PHPSTORM' PHP_IDE_CONFIG='serverName=adam.xen' /var/www/html/hawk/eagle/selenium/vendor/phpunit/phpunit/phpunit"
 alias phpx="XDEBUG_CONFIG='idekey=PHPSTORM' /usr/bin/php"
 alias phpm="XDEBUG_CONFIG='idekey=PHPSTORM' /usr/bin/php"
+alias phoenix="cd /var/www/html/phoenix"
 alias hawk="cd /var/www/html/hawk"
 alias hawkeagle="cd /var/www/html/hawk_eagle"
 alias hawklog="cd /var/www/html/magento/var/log"
@@ -182,17 +189,105 @@ alias template="cde /var/www/html/hawk/magento/app/design/frontend/base/default/
 alias i="ibus restart"
 alias phpstorm="../dev/n98-magerun.phar dev:ide:phpstorm:meta"
 alias fixBaseUrl="php /var/www/html/hawk/dev/scripts/fixBaseUrl.php --base https://adam.xen/store/"
-alias sync-eagle='rsync -rlDz --progress -e "ssh -p 10001" aholsinger@xennsoft.com:/var/www/html/xennsoft.com/eagle/var/modules/ /var/www/html/hawk_eagle/eagle/var/modules/'
+alias sync-eagle='rsync -a --progress -e "ssh -p 10001" aholsinger@xennsoft.com:/var/www/html/xennsoft.com/eagle/var/modules/ /var/www/html/hawk_eagle/eagle/var/modules/'
 alias ngerr="sudo tail -f /var/log/nginx/error.log"
 alias hhvmerr="sudo tail -f /var/log/hhvm/error.log"
 alias process_queue="sudo  /usr/bin/php /var/www/html/hawk_eagle/eagle/bin/Billing_Cron ProcessQueue"
 alias process_queuex="sudo XDEBUG_CONFIG='idekey=PHPSTORM' /usr/bin/php /var/www/html/hawk_eagle/eagle/bin/Billing_Cron ProcessQueue"
 alias process_buildx="sudo XDEBUG_CONFIG='idekey=PHPSTORM' /usr/bin/php /var/www/html/hawk_eagle/eagle/bin/Billing_Cron ProcessBuild"
 alias process_build="sudo  /usr/bin/php /var/www/html/hawk_eagle/eagle/bin/Billing_Cron ProcessBuild"
+alias site_available="php Billing_Cron SiteAvailable";
+alias site_availablex="XDEBUG_CONFIG='idekey=PHPSTORM' /usr/bin/php /var/www/html/hawk_eagle/eagle/bin/Billing_Cron SiteAvailable";
+alias ir="ibus restart"
+alias tl="/var/www/html/hawk/dev/TicketCli/bin/ticket.php timer:list"
+alias il="/var/www/html/hawk/dev/TicketCli/bin/ticket.php -ad issue:list"
+alias ild="/var/www/html/hawk/dev/TicketCli/bin/ticket.php issue:list"
+alias ig="/var/www/html/hawk/dev/TicketCli/bin/ticket.php issue:get"
+alias cwc="php /var/www/html/hawk/wordpress/cache/ cleanAll.php"
+alias delete_mail_queue="sudo postsuper -d ALL"
+alias see_queue="sudo postqueue -p"
+alias startw="sudo supervisorctl start laravel-worker:*"
+alias stopw="sudo supervisorctl stop laravel-worker:*"
+alias djobs="/usr/bin/php /var/www/html/phoenix/artisan jobs:delete --a"
+
+function see_jobs {
+       /usr/bin/php /var/www/html/phoenix/artisan jobs:view -c "$@"	
+}
+
+function tlist {
+	timer timer:list 
+}
+function tlog {
+	timer timer:log $1
+}
+
+function t+ {
+	timer timer:start $1
+}
+
+function t- {
+	timer timer:stop $1
+}
+
+function timer {
+	/var/www/html/hawk/dev/TicketCli/bin/ticket.php "$@"	
+}
+
+function tools {
+	/var/www/html/hawk/dev/DevTools/src/app "$@"
+}
+
+function rchmod {
+	tools File:chmod "$@"
+}
+
+function rscp {
+	tools File:copy "$@"
+}
+
+function r {
+	tools remote:run "$@"
+}
+
+function cookbook_latest {
+	knife cookbook site show $1 | grep latest_version
+}
+
+function see_jobs {
+	/usr/bin/php /var/www/html/phoenix/artisan jobs:view -c "$@"
+}
+
+function chef_bootstrap {
+	berks upload xennsoft --force	
+	knife bootstrap $1 --ssh-user root --sudo --identity-file ~/.ssh/id_rsa --node-name $2 --run-list recipe\[$3\] 
+}
+
+function chef_checkin_root {
+	berks upload xennsoft --force	
+	knife ssh $1 'sudo chef-client' --manual-list --ssh-user root --identity-file ~/.ssh/eagle -p 10001
+}
+
+function chef_checkin {
+	berks upload xennsoft --force	
+	knife ssh $1 'sudo chef-client' --manual-list --ssh-user eagle --identity-file ~/.ssh/eagle
+}
+
+function chef_node_delete {
+	knife node delete --yes $1 && knife client delete --yes $1
+}
+
+function cq {
+	knife search "name:$1*"
+}
+
 
 current_remote="origin"
 function current_remote() {
 	echo $current_remote
+}
+
+function paratest() {
+	/var/www/html/hawk/eagle/selenium/vendor/bin/paratest -p 2 -f --phpunit=/var/www/html/hawk/eagle/selenium/vendor/bin/phpunit "$@"
 }
 
 function gu {
@@ -201,6 +296,7 @@ function gu {
 	currentBranch=$(git rev-parse --abbrev-ref HEAD)
 	echo "git pull $current_remote  $currentBranch"
 	git pull $current_remote $currentBranch 
+	clearcache
 } 
 
 function gpo {
@@ -229,14 +325,14 @@ function sdv {
 		echo "Wrong count of arguments... example 'sdv 10 11 checkout'"
 		return
 	fi
-        prevVersion=$(tp $1 $3)
+        prevVersion=$(tp $3 -s $1)
 	echo $prevVersion;
 	if [[ -z `tag_exists $prevVersion` ]]; then
 		echo "Tag $prevVersion does not exist"
 		return;
 	fi
 
-	nextVersion=$(tp $2 $3)
+	nextVersion=$(tp $3 -s $2)
 	if [[ -z `tag_exists $nextVersion` ]]; then
 		echo "Tag $nextVersion does not exist"
 		return;
@@ -248,6 +344,7 @@ function sdv {
 		git difftool -d $prevVersion $nextVersion
 	fi
 }
+
 
 function tag_exists {
 	echo "git tag --list | grep $1"
@@ -283,9 +380,17 @@ function dodo_assets {
 	ln -s $local_dir $wordpress_dir	
 }
 
+HAWKDIR="/var/www/html/hawk"
+function annotate {
+   cd $HAWKDIR/magento && php ../dev/n98-magerun.phar dev:code:model:method $1 && cd -
+} 
+
+function t {
+	/var/www/html/hawk/dev/TicketCli/bin/ticket.php
+}
 
 
-alias ts="php /var/www/html/hawk/dev/tagger/search.php"
-alias tn="php /var/www/html/hawk/dev/tagger/search.php next"
-alias tp="php /var/www/html/hawk/dev/tagger/search.php specific"
+source /var/www/html/hawk/dev/DevTools/src/Tagger/aliases
 source /var/www/html/hawk/dev/xenn_rc
+source /var/www/html/phoenix/phoenix_rc
+
